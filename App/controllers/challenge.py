@@ -29,3 +29,9 @@ def get_challengeID(code):
     if challenge:
         return Challenge.id
     return None
+
+def get_code(id):
+    challenge = Challenge.query.filter_by(id=id).first()
+    if challenge:
+        return Challenge.code
+    return None
