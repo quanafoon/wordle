@@ -4,12 +4,54 @@
 
 {{ super() }}
 
+
+    
+
 {% block content %}
-    <form action="/" method="GET" style="margin-top: 150px;">
-        <button class="btn-large" style="width: 220px;"> Create Challenge </button>
-    </form>
-    <form action="/" method="GET" style="margin-top: 15px; display: flex">
-        <button class="btn-large" style="width:220px"> Join Challenge </button>
-        <input style="margin-left:20px; width:130px" placeholder="  Challenge ID" name="challengeID" type="text" required="">
-    </form>
+
+<style>     
+    @media (min-width: 1024px) {
+        .form{
+            margin-left:20px
+        }
+        .input{
+            width:250px;
+            margin-left:20px;
+        }
+    }
+
+    /* Styles for tablets */
+    @media (min-width: 768px) and (max-width: 1023px) {
+        .form{
+            margin-left: 20px;
+        }
+        .input{
+            width:100px;
+            margin-left:20px;
+        }
+    }
+
+    /* Styles for phones */
+    @media (max-width: 767px) {
+        .form{
+            margin-left: 20px;
+        }
+        .input{
+            width:100px;
+            margin-left:20px;
+        }
+    }
+</style>
+
+    <div class="form">
+        <form action="/" method="GET" style="margin-top: 150px;">
+            <button class="btn-large" style="width: 220px;"> Create Challenge </button>
+        </form>
+        <form action="/" method="GET" style="margin-top: 15px; display: flex">
+            <button type="submit" class="btn-large" style="width:220px"> Join Challenge </button>
+            <div class="input">
+                <input placeholder="Challenge ID" name="challengeID" type="text" required="">
+            </div>
+        </form>
+    </div>
 {% endblock %}
