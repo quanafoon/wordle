@@ -2,9 +2,11 @@ from App.database import db
 
 class Challenge(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-
-    def __init__(self, id):
-        self.id = id
+    code = db.Column(db.String, nullable=False)
+    word = db.Column(db.String(5))
+    
+    def __init__(self, code):
+        self.code = code
 
     def get_json(self):
         return{
