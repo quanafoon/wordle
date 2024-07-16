@@ -1,13 +1,15 @@
 {% extends "layout.html" %}
-{% block title %}Flask MVC App{% endblock %}
-{% block page %}Flask MVC App{% endblock %}
+{% block title %}Wordle{% endblock %}
+{% block page %}Wordle{% endblock %}
 
 {{ super() }}
 
 {% block content %}
-    <h1>Flask MVC</h1>
-    {% if is_authenticated %}
-        <p> Welcome {{current_user.username}} </p>
-    {% endif %}
-    <p>This is a boileplate flask application which follows the MVC pattern for structuring the project.</p>
+    <form action="/" method="GET" style="margin-top: 150px;">
+        <button class="btn-large" style="width: 220px;"> Create Challenge </button>
+    </form>
+    <form action="/" method="GET" style="margin-top: 15px; display: flex">
+        <button class="btn-large" style="width:220px"> Join Challenge </button>
+        <input style="margin-left:20px; width:130px" placeholder="  Challenge ID" name="challengeID" type="text" required="">
+    </form>
 {% endblock %}
