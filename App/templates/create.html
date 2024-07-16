@@ -1,11 +1,8 @@
 {% extends "layout.html" %}
-{% block title %}Wordle{% endblock %}
-{% block page %}Wordle{% endblock %}
+{% block title %}CHALLENGE{% endblock %}
+{% block page %}CHALLENGE{% endblock %}
 
 {{ super() }}
-
-
-    
 
 {% block content %}
 
@@ -43,15 +40,13 @@
     }
 </style>
 
-    <div class="form">
-        <form action="/create" method="GET" style="margin-top: 150px;">
-            <button class="btn-large" style="width: 220px;"> Create Challenge </button>
-        </form>
-        <form action="/" method="GET" style="margin-top: 15px; display: flex">
-            <button type="submit" class="btn-large" style="width:220px"> Join Challenge </button>
-            <div class="input">
-                <input placeholder="Challenge ID" name="challengeID" type="text" required="">
-            </div>
-        </form>
-    </div>
+<div class="form">
+    <form action="/waiting" method="POST" style="margin-top: 150px; display: flex">
+        <button type="submit" class="btn-large" style="width:220px"> Join Challenge </button>
+        <div class="input">
+            <input placeholder="Enter a challenge code" name="code" type="text" required="">
+        </div>
+    </form>
+</div>
+
 {% endblock %}
