@@ -15,6 +15,10 @@
             width:250px;
             margin-left:20px;
         }
+        .layout{
+            margin-top: 150px; 
+            display: flex;
+        }
     }
 
     /* Styles for tablets */
@@ -26,6 +30,10 @@
             width:100px;
             margin-left:20px;
         }
+        .layout{
+            margin-top: 150px; 
+            display: flex;
+        }
     }
 
     /* Styles for phones */
@@ -34,17 +42,25 @@
             margin-left: 20px;
         }
         .input{
-            width:100px;
+            width:290px;
             margin-left:20px;
+            margin-top:20px;
+        }
+        .btn-large{
+            width: 330px;
+        }
+        .layout{
+            margin-top: 150px; 
+            display: grid;
         }
     }
 </style>
 
 <div class="form">
-    <form action="/waiting" method="POST" style="margin-top: 150px; display: flex">
-        <button type="submit" class="btn-large" style="width:220px"> Create Challenge </button>
+    <form action="/waiting" method="POST" class="layout">
+        <button type="submit" class="btn-large"> Create Challenge </button>
         <div class="input">
-            <input placeholder="Enter a challenge code" name="code" type="text" required="">
+            <input style="text-align: center;" placeholder="Challenge code" name="code" type="text" required="">
         </div>
     </form>
 </div>
