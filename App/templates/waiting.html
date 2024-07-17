@@ -5,5 +5,62 @@
 {{ super() }}
 
 {% block content %}
+<style>     
 
+    @media (min-width: 1024px) {
+        
+        .title{
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .code{
+            margin-top: 0px;
+            text-align: center;
+            font-size: 50px;
+            color: #3D7EBF
+        }
+    }
+
+    /* Styles for tablets */
+    @media (min-width: 768px) and (max-width: 1023px) {
+        
+        .title{
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .code{
+            margin-top: 0px;
+            text-align: center;
+            font-size: 50px;
+            color: #3D7EBF
+        }
+    }
+
+    /* Styles for phones */
+    @media (max-width: 767px) {
+
+        .title{
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .code{
+            margin-top: 0px;
+            text-align: center;
+            font-size: 40px;
+            color: #3E8EDE
+        }
+    }
+</style>
+    <p class="title">CHALLENGE CODE:</p>
+    <p class="code">{{ code }}</p>
+    <p style="margin-top:70px"> Waiting for another player... </p>
+    <div class="progress">
+        <div class="indeterminate"></div>
+    </div>
+    <blockquote style="margin-top:80px">
+        Game will begin when another player enters the challenge code
+    </blockquote>
 {% endblock %}
