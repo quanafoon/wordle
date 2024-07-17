@@ -2,7 +2,7 @@ from App.database import db
 
 class Challenge(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    code = db.Column(db.String, nullable=False)
+    code = db.Column(db.String(80), nullable=False)
     
     def __init__(self, code):
         self.code = code
@@ -10,5 +10,6 @@ class Challenge(db.Model):
     def get_json(self):
         return{
             'id': self.id,
+            'code': self.code
         }
 
