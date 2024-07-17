@@ -4,7 +4,11 @@ from flask_jwt_extended import jwt_required, current_user as jwt_current_user
 from .index import index_views
 
 from App.controllers import (
-    createChallenge
+    createChallenge,
+    get_challenges,
+    cancel_challenge,
+    get_code,
+    get_challengeID,
 )
 
 challenge_views = Blueprint('challenge_views', __name__, template_folder='../templates')
@@ -24,5 +28,25 @@ def create_challenge():
     else:
         flash('almost!')
         return render_template("index.html")
-   
 
+
+@challenge_views.route('/challenges', methods=['GET'])
+def challenge_list():
+    challenges = get_challenges()
+    return jsonify(challenges)
+
+
+@challenge_views.route('/cancel/<string:code>', methods=['POST'])
+def cancel_challenge_route(code):
+    challenge_id = get_challengeID(code)
+    if challenge_id:
+        challenge = cancel_challenge(challenge_id)
+        if challenge:
+            flash('Challenge Cancelled')
+            return render_template("index.html")
+        else:
+            flash('Error in canceling the challenge.')
+            return render_template("waiting.html", code=code)
+    else:
+        flash('Challenge not found.')
+        return render_template("waiting.html", code=code)

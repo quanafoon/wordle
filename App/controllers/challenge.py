@@ -15,23 +15,36 @@ def createChallenge(code):
 def get_code(id):
     challenge = Challenge.query.filter_by(id=id).first()
     if challenge:
-        return Challenge.code
+        return challenge.code
     return None
 
 def get_challenge(id):
     challenge = Challenge.query.filter_by(id=id).first()
     if challenge:
-        return Challenge
+        return challenge
     return None
 
 def get_challengeID(code):
-    challenge = Challenge.query.filter_by(id=id).first()
+    challenge = Challenge.query.filter_by(code=code).first()
     if challenge:
-        return Challenge.id
+        return challenge.id
     return None
 
 def get_code(id):
     challenge = Challenge.query.filter_by(id=id).first()
     if challenge:
-        return Challenge.code
+        return challenge.code
     return None
+
+def get_challenges():
+    challenges = Challenge.query.all()
+    return [challenge.get_json() for challenge in challenges]
+
+def cancel_challenge(challenge_id):
+    challenge = Challenge.query.get(challenge_id)
+    if challenge:
+        db.session.delete(challenge)
+        db.session.commit()
+        return challenge
+    else:
+        return None

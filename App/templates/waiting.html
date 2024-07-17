@@ -20,6 +20,11 @@
             font-size: 50px;
             color: #3D7EBF
         }
+
+        .btn-large{
+            margin-left: 400px;
+            margin-top:30px;
+        }
     }
 
     /* Styles for tablets */
@@ -35,6 +40,11 @@
             text-align: center;
             font-size: 50px;
             color: #3D7EBF
+        }
+        
+        .btn-large{
+            margin-left: 400px;
+            margin-top:30px;
         }
     }
 
@@ -52,6 +62,11 @@
             font-size: 40px;
             color: #3E8EDE
         }
+
+        .btn-large{
+            margin-left: 130px;
+            margin-top:40px;
+        }
     }
 </style>
     <p class="title">CHALLENGE CODE:</p>
@@ -63,4 +78,25 @@
     <blockquote style="margin-top:80px">
         Game will begin when another player enters the challenge code
     </blockquote>
+    <form action="/cancel/{{ code }}" method="POST">
+        <button id="cancelButton" type="submit" class="btn-large">Cancel</button>
+    </form>
+
+    <script>
+        let cancelPressed = false;
+
+        // Handler for cancel button click
+        document.getElementById('cancelButton').addEventListener('click', function(event) {
+            cancelPressed = true;
+        });
+
+        // Handler for beforeunload event
+        window.addEventListener('beforeunload', function(event) {
+            if (!cancelPressed) {
+                // Send a synchronous request to delete the challenge
+                showMessage("Challenge Cancelled")
+                navigator.sendBeacon('/cancel/{{ code }}');
+            }
+        });
+    </script>
 {% endblock %}
