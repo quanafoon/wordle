@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, redirect, url_for
 from flask_jwt_extended import jwt_required, current_user as jwt_current_user
-
+#from App.main import socketio
 from .index import index_views
 
 from App.controllers import (
@@ -13,6 +13,8 @@ from App.controllers import (
 )
 
 challenge_views = Blueprint('challenge_views', __name__, template_folder='../templates')
+
+
 
 @challenge_views.route('/create', methods=['GET'])
 def display():
@@ -59,7 +61,20 @@ def join_challenge():
     challenge = joinChallenge(code)
     if challenge:
         flash('Challenge Found')
-        return render_template("index.html")
+        socketio.emit('challenge_joined', {'code': code}, room=code)
+        return redirect(url_for('game', code=code))
     else:
         flash('almost!')
         return render_template("index.html")
+
+@challenge_views.route('/game/<string:code>', methods=['POST'])
+def go_to_game(code):
+    flash('worked')
+    return render_template("game.html")
+
+
+#@socketio.on('join_challenge')
+#def handle_join_challenge(data):
+#    code = data['code']
+#    join_room(code)
+#    emit('challenge_joined', {'code': code}, room=code)

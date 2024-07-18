@@ -70,7 +70,6 @@
         }
     }
 </style>
-    {% if challenge.ready == False %}
         <p class="title">CHALLENGE CODE:</p>
         <p class="code">{{ challenge.code }}</p>
         <p style="margin-top:70px"> Waiting for another player... </p>
@@ -83,12 +82,10 @@
         <form action="/cancel/{{ challenge.code }}" method="POST">
             <button id="cancelButton" type="submit" class="btn-large">Cancel</button>
         </form>
-    {% else %}
-        <p>found</p>
-    {% endif %}
 
     <script>
         let cancelPressed = false;
+        let found = false
 
         // Handler for cancel button click
         document.getElementById('cancelButton').addEventListener('click', function(event) {
@@ -97,11 +94,25 @@
 
         // Handler for beforeunload event
         window.addEventListener('beforeunload', function(event) {
-            if (!cancelPressed) {
+            if (!cancelPressed && !found) {
                 // Send a synchronous request to delete the challenge
                 showMessage("Challenge Cancelled")
                 navigator.sendBeacon('/cancel/{{ code }}');
             }
         });
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+        const socket = window.socket;
+
+        socket.on('challenge_joined', (data) => {
+            if (data.code === "{{ code }}") {
+                found = true;
+                window.location.href = `/game?code=${data.code}`;
+            }
+        });
+
+        // Automatically join the room for this challenge
+        socket.emit('join_challenge', { code: "{{ code }}" });
+    });
     </script>
 {% endblock %}
