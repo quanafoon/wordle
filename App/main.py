@@ -27,3 +27,6 @@ def create_app(overrides={}):
     app.app_context().push()
     socketio.init_app(app)
     return app
+
+if __name__ == "__main__":
+    socketio.run(app, debug=True)

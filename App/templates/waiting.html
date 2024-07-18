@@ -86,6 +86,7 @@
     <script>
         let cancelPressed = false;
         let found = false
+        const socket = io();
 
         // Handler for cancel button click
         document.getElementById('cancelButton').addEventListener('click', function(event) {
@@ -97,22 +98,21 @@
             if (!cancelPressed && !found) {
                 // Send a synchronous request to delete the challenge
                 showMessage("Challenge Cancelled")
-                navigator.sendBeacon('/cancel/{{ code }}');
+                navigator.sendBeacon('/cancel/{{ challenge.code }}');
             }
         });
 
-        document.addEventListener('DOMContentLoaded', (event) => {
-        const socket = window.socket;
+
+        // Automatically join the room for this challenge
+        socket.emit('join_challenge', { code: "{{ challenge.code }}" });
+
 
         socket.on('challenge_joined', (data) => {
             if (data.code === "{{ challenge.code }}") {
                 found = true;
+                showMessage("SIGNAL TEST");
                 window.location.href = `/game/${data.code}`;
             }
         });
-
-        // Automatically join the room for this challenge
-        socket.emit('join_challenge', { code: "{{ challenge.code }}" });
-    });
     </script>
 {% endblock %}
