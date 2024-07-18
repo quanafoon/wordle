@@ -9,6 +9,7 @@ from App.controllers import (
     cancel_challenge,
     get_code,
     get_challengeID,
+    joinChallenge
 )
 
 challenge_views = Blueprint('challenge_views', __name__, template_folder='../templates')
@@ -24,9 +25,9 @@ def create_challenge():
     challenge = createChallenge(code)
     if challenge:
         flash('Challenge Created')
-        return render_template("waiting.html", code=code)
+        return render_template("waiting.html", challenge=challenge)
     else:
-        flash('almost!')
+        flash('Error Creating Challenge')
         return render_template("index.html")
 
 
@@ -50,3 +51,15 @@ def cancel_challenge_route(code):
     else:
         flash('Challenge not found.')
         return render_template("waiting.html", code=code)
+
+
+@challenge_views.route('/join', methods=['POST'])
+def join_challenge():
+    code = request.form.get('code')
+    challenge = joinChallenge(code)
+    if challenge:
+        flash('Challenge Found')
+        return render_template("index.html")
+    else:
+        flash('almost!')
+        return render_template("index.html")

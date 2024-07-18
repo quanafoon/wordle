@@ -5,6 +5,7 @@
 {{ super() }}
 
 {% block content %}
+
 <style>     
 
     @media (min-width: 1024px) {
@@ -69,18 +70,22 @@
         }
     }
 </style>
-    <p class="title">CHALLENGE CODE:</p>
-    <p class="code">{{ code }}</p>
-    <p style="margin-top:70px"> Waiting for another player... </p>
-    <div class="progress">
-        <div class="indeterminate"></div>
-    </div>
-    <blockquote style="margin-top:80px">
-        Game will begin when another player enters the challenge code
-    </blockquote>
-    <form action="/cancel/{{ code }}" method="POST">
-        <button id="cancelButton" type="submit" class="btn-large">Cancel</button>
-    </form>
+    {% if challenge.ready == False %}
+        <p class="title">CHALLENGE CODE:</p>
+        <p class="code">{{ challenge.code }}</p>
+        <p style="margin-top:70px"> Waiting for another player... </p>
+        <div class="progress">
+            <div class="indeterminate"></div>
+        </div>
+        <blockquote style="margin-top:80px">
+            Game will begin when another player enters the challenge code
+        </blockquote>
+        <form action="/cancel/{{ challenge.code }}" method="POST">
+            <button id="cancelButton" type="submit" class="btn-large">Cancel</button>
+        </form>
+    {% else %}
+        <p>found</p>
+    {% endif %}
 
     <script>
         let cancelPressed = false;

@@ -4,11 +4,20 @@ import random
 import string
 
 def createChallenge(code):
-    new_challenge = Challenge(code=code)
+    new_challenge = Challenge(code=code, ready=False)
     if new_challenge:
         db.session.add(new_challenge)
         db.session.commit()
         return new_challenge
+    else:
+        return None
+
+def joinChallenge(code):
+    challenge = Challenge.query.filter_by(code=code).first()
+    if challenge:
+        challenge.ready = True
+        db.session.commit()
+        return challenge
     else:
         return None
 
