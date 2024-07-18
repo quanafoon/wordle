@@ -85,4 +85,5 @@ def handle_join_challenge(data):
     code = data.get('code')
     if is_valid_code(code):  # Ensure you define this function to validate the code
         join_room(code)
-        
+        socketio.emit('challenge_joined', {'code': code}, room=code)
+
