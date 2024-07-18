@@ -9,6 +9,7 @@ def load_words():
         header = next(csvreader)
 
         for row in csvreader: 
+            id = row[0]
             word = row[1]
             
             word = Words(
