@@ -103,16 +103,15 @@
         });
 
 
-        // Automatically join the room for this challenge
-        socket.emit('join_challenge', { code: "{{ challenge.code }}" });
-
-
         socket.on('challenge_joined', (data) => {
             if (data.code === "{{ challenge.code }}") {
                 found = true;
-                showMessage("SIGNAL TEST");
                 window.location.href = `/game/${data.code}`;
+                socket.emit('join_challenge', { code: "{{ challenge.code }}" });
             }
         });
+         // Automatically join the room for this challenge
+         
+
     </script>
 {% endblock %}
