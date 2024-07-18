@@ -6,8 +6,7 @@ from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 from App.database import init_db
 from App.config import load_config
-from flask_socketio import SocketIO 
-
+from App.sockets import socketio
 
 from App.views import views, setup_admin
 
@@ -17,7 +16,7 @@ def add_views(app):
 
 def create_app(overrides={}):
     app = Flask(__name__, static_url_path='/static')
-    socketio = SocketIO(app)
+    #socketio = SocketIO(app)
     load_config(app, overrides)
     CORS(app)
     photos = UploadSet('photos', TEXT + DOCUMENTS + IMAGES)
@@ -26,4 +25,5 @@ def create_app(overrides={}):
     init_db(app)
     setup_admin(app)
     app.app_context().push()
+    socketio.init_app(app)
     return app

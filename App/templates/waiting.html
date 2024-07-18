@@ -105,14 +105,14 @@
         const socket = window.socket;
 
         socket.on('challenge_joined', (data) => {
-            if (data.code === "{{ code }}") {
+            if (data.code === "{{ challenge.code }}") {
                 found = true;
-                window.location.href = `/game?code=${data.code}`;
+                window.location.href = `/game/${data.code}`;
             }
         });
 
         // Automatically join the room for this challenge
-        socket.emit('join_challenge', { code: "{{ code }}" });
+        socket.emit('join_challenge', { code: "{{ challenge.code }}" });
     });
     </script>
 {% endblock %}
