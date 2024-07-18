@@ -24,5 +24,5 @@ def get_words():
 
 def get_word():
     num = random.randint(1,250)
-    word = Words.query.filter_by(id=num)
+    word = Words.query.filter_by(id=num).first()
     return word

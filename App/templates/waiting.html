@@ -106,11 +106,13 @@
         socket.on('challenge_joined', (data) => {
             if (data.code === "{{ challenge.code }}") {
                 found = true;
-                window.location.href = `/game/${data.code}`;
+                window.location.href = '/game/${data.code}';
+            }
+            else{
+                showMessage("almost")
             }
         });
          // Automatically join the room for this challenge
-         socket.emit('join_challenge', { code: "{{ challenge.code }}" });
 
 
     </script>

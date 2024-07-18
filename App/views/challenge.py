@@ -10,7 +10,9 @@ from App.controllers import (
     cancel_challenge,
     get_code,
     get_challengeID,
-    joinChallenge
+    joinChallenge,
+    get_word,
+    is_valid
 )
 
 challenge_views = Blueprint('challenge_views', __name__, template_folder='../templates')
@@ -28,6 +30,7 @@ def create_challenge():
     challenge = createChallenge(code)
     if challenge:
         flash('Challenge Created')
+        socketio.emit('join_challenge', {'code': code}, room=code)
         return render_template("waiting.html", challenge=challenge)
     else:
         flash('Error Creating Challenge')
@@ -69,13 +72,17 @@ def join_challenge():
         flash('Invalid code')
         return render_template("index.html")
 
+
+
 @challenge_views.route('/game/<string:code>', methods=['GET'])
 def go_to_game(code):
-    #flash('worked')
-    return render_template("game.html", code=code)
+    word = get_word()
+    return render_template("game.html", code=code, word=word)
+
 
 @socketio.on('join_challenge')
 def handle_join_challenge(data):
-    code = data['code']
-    join_room(code)
-    emit('challenge_joined', {'code': code}, room=code)
+    code = data.get('code')
+    if is_valid_code(code):  # Ensure you define this function to validate the code
+        join_room(code)
+        
