@@ -1,10 +1,17 @@
-from App.models import Challenge
+from App.models import Challenge, Words
 from App.database import db
 import random
 import string
 
+
+def get_word():
+    num = random.randint(1,250)
+    word = Words.query.filter_by(id=num).first()
+    return word.word
+
 def createChallenge(code):
-    new_challenge = Challenge(code=code, ready=False)
+    word= get_word()
+    new_challenge = Challenge(code=code, word=word)
     if new_challenge:
         db.session.add(new_challenge)
         db.session.commit()
@@ -15,8 +22,6 @@ def createChallenge(code):
 def joinChallenge(code):
     challenge = Challenge.query.filter_by(code=code).first()
     if challenge:
-        challenge.ready = True
-        db.session.commit()
         return challenge
     else:
         return None
@@ -37,6 +42,12 @@ def get_challengeID(code):
     challenge = Challenge.query.filter_by(code=code).first()
     if challenge:
         return challenge.id
+    return None
+
+def get_ch_by_code(code):
+    challenge = Challenge.query.filter_by(code=code).first()
+    if challenge:
+        return challenge
     return None
 
 def get_code(id):
