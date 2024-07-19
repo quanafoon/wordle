@@ -106,7 +106,7 @@
         socket.on('challenge_joined', (data) => {
             if (data.code === "{{ challenge.code }}") {
                 found = true;
-                window.location.href = '/game/${data.code}';
+                window.location.href = '/game/{{challenge.code}}';
             }
             else{
                 showMessage("almost")

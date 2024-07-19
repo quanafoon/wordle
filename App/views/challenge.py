@@ -12,7 +12,8 @@ from App.controllers import (
     get_challengeID,
     joinChallenge,
     get_word,
-    is_valid
+    is_valid,
+    get_ch_by_code
 )
 
 challenge_views = Blueprint('challenge_views', __name__, template_folder='../templates')
@@ -76,8 +77,8 @@ def join_challenge():
 
 @challenge_views.route('/game/<string:code>', methods=['GET'])
 def go_to_game(code):
-    word = get_word()
-    return render_template("game.html", code=code, word=word)
+    challenge = get_ch_by_code(code)
+    return render_template("game.html", challenge=challenge)
 
 
 @socketio.on('join_challenge')

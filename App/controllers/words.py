@@ -22,7 +22,3 @@ def get_words():
     words = Words.query.all()
     return [word.get_json() for word in words]
 
-def get_word():
-    num = random.randint(1,250)
-    word = Words.query.filter_by(id=num).first()
-    return word
