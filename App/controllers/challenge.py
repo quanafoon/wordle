@@ -57,3 +57,10 @@ def cancel_challenge(challenge_id):
         return challenge
     else:
         return None
+
+def is_valid(code):
+    valid = Challenge.query.filter_by(code=code)
+    if valid:
+        return valid
+    else:
+        return None

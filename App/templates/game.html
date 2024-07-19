@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block title %}CHALLENGE{% endblock %}
+{% block page %}CHALLENGE{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+
+<style>     
+
+    @media (min-width: 1024px) {
+        
+        .title{
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .code{
+            margin-top: 0px;
+            text-align: center;
+            font-size: 50px;
+            color: #3D7EBF
+        }
+
+        .btn-large{
+            margin-left: 400px;
+            margin-top:30px;
+        }
+    }
+
+    /* Styles for tablets */
+    @media (min-width: 768px) and (max-width: 1023px) {
+        
+        .title{
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .code{
+            margin-top: 0px;
+            text-align: center;
+            font-size: 50px;
+            color: #3D7EBF
+        }
+        
+        .btn-large{
+            margin-left: 400px;
+            margin-top:30px;
+        }
+    }
+
+    /* Styles for phones */
+    @media (max-width: 767px) {
+
+        .title{
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .code{
+            margin-top: 0px;
+            text-align: center;
+            font-size: 40px;
+            color: #3E8EDE
+        }
+
+        .btn-large{
+            margin-left: 130px;
+            margin-top:40px;
+        }
+    }
+</style>
+    
+<p> {{word.word}} </p>
+{% endblock %}

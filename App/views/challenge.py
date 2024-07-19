@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, redirect, url_for
 from flask_jwt_extended import jwt_required, current_user as jwt_current_user
-
-from .index import index_views
+from App.sockets import socketio
+from flask_socketio import emit, join_room
+#from .index import index_views
 
 from App.controllers import (
     createChallenge,
@@ -9,10 +10,14 @@ from App.controllers import (
     cancel_challenge,
     get_code,
     get_challengeID,
-    joinChallenge
+    joinChallenge,
+    get_word,
+    is_valid
 )
 
 challenge_views = Blueprint('challenge_views', __name__, template_folder='../templates')
+
+
 
 @challenge_views.route('/create', methods=['GET'])
 def display():
@@ -25,6 +30,7 @@ def create_challenge():
     challenge = createChallenge(code)
     if challenge:
         flash('Challenge Created')
+        socketio.emit('join_challenge', {'code': code}, room=code)
         return render_template("waiting.html", challenge=challenge)
     else:
         flash('Error Creating Challenge')
@@ -59,7 +65,25 @@ def join_challenge():
     challenge = joinChallenge(code)
     if challenge:
         flash('Challenge Found')
-        return render_template("index.html")
+        socketio.emit('challenge_joined', {'code': code}, room=code)
+        #return render_template("game.html", code=code)
+        return redirect(url_for('challenge_views.go_to_game', code=code))
     else:
-        flash('almost!')
+        flash('Invalid code')
         return render_template("index.html")
+
+
+
+@challenge_views.route('/game/<string:code>', methods=['GET'])
+def go_to_game(code):
+    word = get_word()
+    return render_template("game.html", code=code, word=word)
+
+
+@socketio.on('join_challenge')
+def handle_join_challenge(data):
+    code = data.get('code')
+    #if is_valid_code(code):  # Ensure you define this function to validate the code
+    join_room(code)
+    #socketio.emit('challenge_joined', {'code': code}, room=code)
+
