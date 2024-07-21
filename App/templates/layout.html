@@ -10,6 +10,9 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script>
+
     <title>{% block title %}{% endblock %}</title>
     
   </head>
@@ -53,6 +56,20 @@
 
             window.socket = socket;  // Make socket accessible globally
         });  
+
+        const firebaseConfig = {
+        apiKey: "AIzaSyB1bXY4ZkWxVwCROreFkHiGJCNdFF6LsWo",
+        authDomain: "wordle-c8b00.firebaseapp.com",
+        projectId: "wordle-c8b00",
+        storageBucket: "wordle-c8b00.appspot.com",
+        messagingSenderId: "622975734797",
+        appId: "1:622975734797:web:142cbd30f6b009c7d1b144",
+        measurementId: "G-4WZ4MHBLC3"
+      };
+      
+      const db = firebase.firestore();
+      
+      const app = firebase.initializeApp(firebaseConfig);
     </script>
   </body>
 </html>
