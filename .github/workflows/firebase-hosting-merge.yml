@@ -22,7 +22,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10.6'  # Specify a Python version available for Ubuntu 22.04
+          python-version: '3.10.6'  # Specify the Python version you need
 
       # Install Python dependencies
       - name: Install dependencies
@@ -31,12 +31,6 @@ jobs:
           source venv/bin/activate
           pip install --upgrade pip
           pip install -r requirements.txt
-
-      # Build your Flask app (Optional, if you have a build step)
-      # - name: Build Flask App
-      #   run: |
-      #     source venv/bin/activate
-      #     # Your build commands here
 
       # Firebase Hosting deploy
       - name: Deploy to Firebase
