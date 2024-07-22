@@ -11,10 +11,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+
+      # Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'  # Specify the Python version you need
+
+      # Install Python dependencies
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      # Run Gunicorn (Optional, for testing; not typically needed for Firebase Hosting)
+      # If Firebase Hosting is your goal, this step can be omitted.
+      - name: Run Gunicorn
+        run: |
+          source venv/bin/activate
+          gunicorn -w 4 -b 0.0.0.0:8000 wsgi:app &
+
+      # Firebase Hosting deploy
+      - name: Deploy to Firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_WORDLE_C8B00 }}
           channelId: live
           projectId: wordle-c8b00
+          public: "static"
+          predeploy: "pip install -r requirements.txt && gunicorn -w 4 -b 0.0.0.0:8000 wsgi:app"
