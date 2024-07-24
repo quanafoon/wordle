@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
-{% block title %}CHALLENGE{% endblock %}
-{% block page %}CHALLENGE{% endblock %}
+{% block title %}WORDLE{% endblock %}
+{% block page %}WORDLE{% endblock %}
 
 {{ super() }}
 
@@ -9,67 +9,67 @@
 <style>     
 
     @media (min-width: 1024px) {
-        
-        .title{
-            margin-top: 30px;
-            text-align: center;
-        }
 
-        .code{
-            margin-top: 0px;
-            text-align: center;
-            font-size: 50px;
-            color: #3D7EBF
-        }
-
-        .btn-large{
-            margin-left: 400px;
-            margin-top:30px;
+        .row{
+            width:200px;
+            margin-left: 0px;
         }
     }
 
     /* Styles for tablets */
     @media (min-width: 768px) and (max-width: 1023px) {
         
-        .title{
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .code{
-            margin-top: 0px;
-            text-align: center;
-            font-size: 50px;
-            color: #3D7EBF
-        }
-        
-        .btn-large{
-            margin-left: 400px;
-            margin-top:30px;
+        .row{
+            width:150px;
+            margin-left: 0px;
         }
     }
 
     /* Styles for phones */
     @media (max-width: 767px) {
 
-        .title{
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .code{
-            margin-top: 0px;
-            text-align: center;
-            font-size: 40px;
-            color: #3E8EDE
-        }
-
-        .btn-large{
-            margin-left: 130px;
-            margin-top:40px;
+        .row{
+            width:180px;
+            margin-left: 0px;
         }
     }
 </style>
     
 <p> {{challenge.word}} </p>
+
+<div class="row" id="row-1">
+    <input class="in" type="text" id="guess-1" maxlength="5" oninput="ValidateInput(this)">
+    <button class="btn" onclick="submit-guess(1)">Submit</button>
+    <div class="result" id="result-1"></div>
+</div>
+
+<div class="row" id="row-2">
+    <input class="in" type="text" id="guess-2" maxlength="5" oninput="ValidateInput(this)" disabled>
+    <button class="btn" onclick="submit-guess(2)" disabled>Submit</button>
+    <div class="result" id="result-2"></div>
+</div>
+
+<div class="row" id="row-3">
+    <input class="in" type="text" id="guess-3" maxlength="5" oninput="ValidateInput(this)" disabled>
+    <button class="btn" onclick="submit-guess(3)" disabled>Submit</button>
+    <div class="result" id="result-3"></div>
+</div>
+
+<div class="row" id="row-4">
+    <input class="in" type="text" id="guess-4" maxlength="5" oninput="ValidateInput(this)" disabled>
+    <button class="btn" onclick="submit-guess(4)" disabled>Submit</button>
+    <div class="result" id="result-4"></div>
+</div>
+
+<div class="row" id="row-5">
+    <input class="in" type="text" id="guess-5" maxlength="5" oninput="ValidateInput(this)" disabled>
+    <button class="btn" onclick="submit-guess(5)" disabled>Submit</button>
+    <div class="result" id="result-5"></div>
+</div>
+
+<div class="row" id="row-6">
+    <input class="in" type="text" id="guess-6" maxlength="5" oninput="ValidateInput(this)" disabled>
+    <button class="btn" onclick="submit-guess(6)" disabled>Submit</button>
+    <div class="result" id="result-6"></div>
+</div>
 {% endblock %}
