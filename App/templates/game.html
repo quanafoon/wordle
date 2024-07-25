@@ -11,8 +11,18 @@
     @media (min-width: 1024px) {
 
         .row{
-            width:200px;
             margin-left: 0px;
+            display:flex;
+        }
+        .in{
+            width:550px;
+            display:flex;
+            
+        }
+        .result{
+            margin-top: 0px;;
+            margin-left: 50px;
+            font-size: 25px;
         }
     }
 
@@ -20,8 +30,18 @@
     @media (min-width: 768px) and (max-width: 1023px) {
         
         .row{
-            width:150px;
             margin-left: 0px;
+            display:flex;
+        }
+        .in{
+            width:550px;
+            display:flex;
+            
+        }
+        .result{
+            margin-top: 0px;;
+            margin-left: 50px;
+            font-size: 25px;
         }
     }
 
@@ -29,8 +49,19 @@
     @media (max-width: 767px) {
 
         .row{
-            width:180px;
+            width:400px;
             margin-left: 0px;
+            display:flex;
+        }
+        .in{
+            margin-top: 10px;
+            width:250px;
+            display:flex;
+        }
+        .result{
+            margin-top: 10px;;
+            margin-left: 25px;
+            font-size: 25px;
         }
     }
 </style>
@@ -38,38 +69,92 @@
 <p> {{challenge.word}} </p>
 
 <div class="row" id="row-1">
-    <input class="in" type="text" id="guess-1" maxlength="5" oninput="ValidateInput(this)">
-    <button class="btn" onclick="submit-guess(1)">Submit</button>
-    <div class="result" id="result-1"></div>
+    <div class="in">        
+        <input style="text-align: center" type="text" id="guess-1" maxlength="5" oninput="validateInput(this)">
+        <button class="btn" onclick="submitGuess(1)" disabled>GUESS</button>
+    </div>
+    <div class="result" id="result-1">
+
+    </div>
 </div>
 
 <div class="row" id="row-2">
-    <input class="in" type="text" id="guess-2" maxlength="5" oninput="ValidateInput(this)" disabled>
-    <button class="btn" onclick="submit-guess(2)" disabled>Submit</button>
-    <div class="result" id="result-2"></div>
+    <div class="in">        
+        <input style="text-align: center" type="text" id="guess-2" maxlength="5" oninput="validateInput(this)" disabled>
+        <button class="btn" onclick="submitGuess(2)" disabled>GUESS</button>
+    </div>
+    <div class="result" id="result-2">
+        
+    </div>
 </div>
 
 <div class="row" id="row-3">
-    <input class="in" type="text" id="guess-3" maxlength="5" oninput="ValidateInput(this)" disabled>
-    <button class="btn" onclick="submit-guess(3)" disabled>Submit</button>
-    <div class="result" id="result-3"></div>
+    <div class="in">        
+        <input style="text-align: center" type="text" id="guess-3" maxlength="5" oninput="validateInput(this)" disabled>
+        <button class="btn" onclick="submitGuess(3)" disabled>GUESS</button>
+    </div>
+    <div class="result" id="result-3">
+
+    </div>
 </div>
 
 <div class="row" id="row-4">
-    <input class="in" type="text" id="guess-4" maxlength="5" oninput="ValidateInput(this)" disabled>
-    <button class="btn" onclick="submit-guess(4)" disabled>Submit</button>
-    <div class="result" id="result-4"></div>
+    <div class="in">        
+        <input style="text-align: center" type="text" id="guess-4" maxlength="5" oninput="validateInput(this)" disabled>
+        <button class="btn" onclick="submitGuess(4)" disabled>GUESS</button>
+    </div>
+    <div class="result" id="result-4">
+
+    </div>
 </div>
 
 <div class="row" id="row-5">
-    <input class="in" type="text" id="guess-5" maxlength="5" oninput="ValidateInput(this)" disabled>
-    <button class="btn" onclick="submit-guess(5)" disabled>Submit</button>
-    <div class="result" id="result-5"></div>
+    <div class="in">        
+        <input style="text-align: center" type="text" id="guess-5" maxlength="5" oninput="validateInput(this)" disabled>
+        <button class="btn" onclick="submitGuess(5)" disabled>GUESS</button>
+    </div>
+    <div class="result" id="result-5">
+        
+    </div>
 </div>
 
 <div class="row" id="row-6">
-    <input class="in" type="text" id="guess-6" maxlength="5" oninput="ValidateInput(this)" disabled>
-    <button class="btn" onclick="submit-guess(6)" disabled>Submit</button>
-    <div class="result" id="result-6"></div>
+    <div class="in">        
+        <input style="text-align: center" type="text" id="guess-6" maxlength="5" oninput="validateInput(this)" disabled>
+        <button class="btn" onclick="submitGuess(6)" disabled>GUESS</button>
+    </div>
+    <div class="result" id="result-6">
+        
+    </div>
 </div>
+
+<script>
+    function validateInput(input) {
+        if (input.value.length === 5) {
+            const rowID = input.id.split('-')[1];
+            document.querySelector(`#row-${rowID} button`).disabled = false;
+        } 
+        if (input.value.length < 5){
+            const rowID = input.id.split('-')[1];
+            document.querySelector(`#row-${rowID} button`).disabled = true;
+        }
+    }
+
+    async function submitGuess(row) {
+        document.querySelector(`#row-${row} input`).disabled = true;
+        document.querySelector(`#row-${row} button`).disabled = true;
+        const inputElement = document.querySelector(`#row-${row} input`);
+        const word = inputElement.value;
+        const challengeID = "{{challenge.id}}";
+        const response = await fetch( `/check/${challengeID}/${word}`, {
+            method: 'POST'
+        });
+        const result = await response.json();
+
+        const resultElement = document.querySelector(`#result-${row}`);
+        resultElement.innerHTML = result.map(item => `<b style="color: ${item.color};">${item.char.toUpperCase()}</b>`).join(' ');
+        document.querySelector(`#row-${row+1} input`).disabled = false;
+    }
+
+</script>
 {% endblock %}
