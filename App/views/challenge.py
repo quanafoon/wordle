@@ -84,6 +84,7 @@ def go_to_game(code):
 
 @challenge_views.route('/check/<int:id>/<string:word>', methods=['POST'])
 def check_word(id, word):
+    greens = 0
     challenge = get_challenge(id)
     word_to_guess = challenge.word
     result = []
@@ -91,12 +92,22 @@ def check_word(id, word):
         char = char.lower()
         if char == word_to_guess[i]:
             result.append({"char": char, "color": "green"})
+            greens += 1
         elif char in word_to_guess:
             result.append({"char": char, "color": "yellow"})
         else:
             result.append({"char": char, "color": "black"})
+    if greens == len(word_to_guess):
+        return jsonify({"status": "success"})
     return jsonify(result)
-    
+
+@challenge_views.route('/success/<string:word>', methods=['GET'])
+def go_to_success(word):
+    return render_template("success.html", word=word)
+
+@challenge_views.route('/fail/<string:word>', methods=['GET'])
+def go_to_fail(word):
+    return render_template("fail.html", word=word)
 
 
 @socketio.on('join_challenge')

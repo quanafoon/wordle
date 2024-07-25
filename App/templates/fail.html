@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+{% block title %}WORDLE{% endblock %}
+{% block page %}WORDLE{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+
+<style>     
+
+
+@media (min-width: 1024px) {
+    
+    .title{
+        margin-top: 20px;
+        text-align: center;
+        font-size: 50px;
+        font-family: "Tangerine", cursive;
+        font-weight: 700;
+        font-style: normal;
+        color: #E94532;
+    }
+
+    .code{
+        margin-top: 0px;
+        text-align: center;
+        font-size: 50px;
+        color: #3D7EBF
+    }
+
+    .btn-large{
+        margin-left: 400px;
+        margin-top:30px;
+    }
+
+}
+
+/* Styles for tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+    
+    .title{
+        margin-top: 20px;
+        text-align: center;
+        font-size: 50px;
+        font-family: "Tangerine", cursive;
+        font-weight: 700;
+        font-style: normal;
+        color: #E94532;
+    }
+
+    .code{
+        margin-top: 0px;
+        text-align: center;
+        font-size: 50px;
+        color: #3D7EBF
+    }
+
+    .btn-large{
+        margin-left: 400px;
+        margin-top:30px;
+    }
+
+}
+
+/* Styles for phones */
+@media (max-width: 767px) {
+
+    .title{
+        margin-top: 60px;
+        text-align: center;
+        font-size: 40px;
+        font-family: "Tangerine", cursive;
+        font-weight: 700;
+        font-style: normal;
+        color: #E94532;
+
+    }
+
+    .code{
+        margin-top: 60px;
+        text-align: center;
+        font-size: 40px;
+        color: #3D7EBF
+    }
+
+    .btn-large{
+        margin-left: 130px;
+        margin-top:40px;
+    }
+
+}
+</style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+    
+    <div class="title">
+        <p>Better Luck Next Time !!</p>
+    </div>
+
+    <div class="code">
+    <p >{{ word }}</p>
+    </div>
+
+    <form action="/" method="GET">
+        <button type="submit" class="btn-large">HOME</button>
+    </form>
+
+
+
+{% endblock %}
