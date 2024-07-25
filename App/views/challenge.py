@@ -105,6 +105,10 @@ def check_word(id, word):
 def go_to_success(word):
     return render_template("success.html", word=word)
 
+@challenge_views.route('/fail/<string:word>', methods=['GET'])
+def go_to_fail(word):
+    return render_template("fail.html", word=word)
+
 
 @socketio.on('join_challenge')
 def handle_join_challenge(data):

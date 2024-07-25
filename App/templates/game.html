@@ -128,6 +128,7 @@
     </div>
 </div>
 
+
 <script>
     function validateInput(input) {
         if (input.value.length === 5) {
@@ -157,7 +158,13 @@
         else {
             const resultElement = document.querySelector(`#result-${row}`);
             resultElement.innerHTML = result.map(item => `<b style="color: ${item.color};">${item.char.toUpperCase()}</b>`).join(' ');
-            document.querySelector(`#row-${row+1} input`).disabled = false;
+        }
+        if (row < 6) {
+            document.querySelector(`#row-${row + 1} input`).disabled = false;
+        }
+        if (row === 6 && result.status != 'success'){
+            const challengeWord = "{{challenge.word}}"; 
+            window.location.href = `/fail/${challengeWord}`;
         }
     }
 
