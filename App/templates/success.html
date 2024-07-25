@@ -12,8 +12,13 @@
 @media (min-width: 1024px) {
     
     .title{
-        margin-top: 30px;
+        margin-top: 20px;
         text-align: center;
+        font-size: 50px;
+        font-family: "Tangerine", cursive;
+        font-weight: 700;
+        font-style: normal;
+        color: #30914C;
     }
 
     .code{
@@ -29,7 +34,7 @@
     }
 
     .fun-button{
-        margin-top: 100px;
+        margin-top: 80px;
     }
 
 }
@@ -63,12 +68,18 @@
 @media (max-width: 767px) {
 
     .title{
-        margin-top: 30px;
+        margin-top: 60px;
         text-align: center;
+        font-size: 30px;
+        font-family: "Tangerine", cursive;
+        font-weight: 700;
+        font-style: normal;
+        color: #30914C;
+
     }
 
     .code{
-        margin-top: 0px;
+        margin-top: 60px;
         text-align: center;
         font-size: 40px;
         color: #3E8EDE
@@ -86,9 +97,17 @@
 </style>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+    
+    <div class="title">
+        <p>CONGRATULATIONS !!</p>
+    </div>
 
-    <p class="title">CONGRATULATIONS !!</p>
-    <p class="code">{{ word }}</p>
+    <div class="code">
+    <p >{{ word }}</p>
+    </div>
 
     <form action="/" method="GET">
         <button type="submit" class="btn-large">HOME</button>
