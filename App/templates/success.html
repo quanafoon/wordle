@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+{% block title %}WORDLE{% endblock %}
+{% block page %}WORDLE{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+
+<style>     
+
+
+@media (min-width: 1024px) {
+    
+    .title{
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .code{
+        margin-top: 0px;
+        text-align: center;
+        font-size: 50px;
+        color: #3D7EBF
+    }
+
+    .btn-large{
+        margin-left: 400px;
+        margin-top:30px;
+    }
+
+    .fun-button{
+        margin-top: 100px;
+    }
+
+}
+
+/* Styles for tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+    
+    .title{
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .code{
+        margin-top: 0px;
+        text-align: center;
+        font-size: 50px;
+        color: #3D7EBF
+    }
+    
+    .btn-large{
+        margin-left: 400px;
+        margin-top:30px;
+    }
+
+    .fun-button{
+        margin-top: 100px;
+    }
+}
+
+/* Styles for phones */
+@media (max-width: 767px) {
+
+    .title{
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .code{
+        margin-top: 0px;
+        text-align: center;
+        font-size: 40px;
+        color: #3E8EDE
+    }
+
+    .btn-large{
+        margin-left: 130px;
+        margin-top:40px;
+    }
+
+    .fun-button{
+        margin-top: 100px;
+    }
+}
+</style>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <p class="title">CONGRATULATIONS !!</p>
+    <p class="code">{{ word }}</p>
+
+    <form action="/" method="GET">
+        <button type="submit" class="btn-large">HOME</button>
+    </form>
+
+    <div class="fun-button">
+        <button class="confetti-button">Confetti 🎉</button>
+    </div>
+
+    <script>
+        function PartyTime(){
+            confetti();
+        }
+        window.onload = function() {
+            PartyTime();
+        };
+        document.getElementsByClassName('confetti-button')[0].addEventListener('click', () => {
+            confetti();
+        });
+    </script>
+
+{% endblock %}
