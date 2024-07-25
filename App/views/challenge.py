@@ -13,7 +13,8 @@ from App.controllers import (
     joinChallenge,
     get_word,
     is_valid,
-    get_ch_by_code
+    get_ch_by_code,
+    get_challenge,
 )
 
 challenge_views = Blueprint('challenge_views', __name__, template_folder='../templates')
@@ -79,6 +80,23 @@ def join_challenge():
 def go_to_game(code):
     challenge = get_ch_by_code(code)
     return render_template("game.html", challenge=challenge)
+
+
+@challenge_views.route('/check/<int:id>/<string:word>', methods=['POST'])
+def check_word(id, word):
+    challenge = get_challenge(id)
+    word_to_guess = challenge.word
+    result = []
+    for i, char in enumerate(word):
+        char = char.lower()
+        if char == word_to_guess[i]:
+            result.append({"char": char, "color": "green"})
+        elif char in word_to_guess:
+            result.append({"char": char, "color": "yellow"})
+        else:
+            result.append({"char": char, "color": "black"})
+    return jsonify(result)
+    
 
 
 @socketio.on('join_challenge')
