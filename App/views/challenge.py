@@ -15,6 +15,9 @@ from App.controllers import (
     is_valid,
     get_ch_by_code,
     get_challenge,
+    addPlayer,
+    removePlayer,
+    check
 )
 
 challenge_views = Blueprint('challenge_views', __name__, template_folder='../templates')
@@ -68,7 +71,7 @@ def join_challenge():
     if challenge:
         flash('Challenge Found')
         socketio.emit('challenge_joined', {'code': code}, room=code)
-        #return render_template("game.html", code=code)
+        challenge = addPlayer(code)
         return redirect(url_for('challenge_views.go_to_game', code=code))
     else:
         flash('Invalid code')
@@ -101,12 +104,20 @@ def check_word(id, word):
         return jsonify({"status": "success"})
     return jsonify(result)
 
-@challenge_views.route('/success/<string:word>', methods=['GET'])
-def go_to_success(word):
+@challenge_views.route('/success/<string:code>', methods=['GET'])
+def go_to_success(code):
+    challenge = get_ch_by_code(code)
+    word = challenge.word
+    challenge = removePlayer(code)
+    check(code)
     return render_template("success.html", word=word)
 
-@challenge_views.route('/fail/<string:word>', methods=['GET'])
-def go_to_fail(word):
+@challenge_views.route('/fail/<string:code>', methods=['GET'])
+def go_to_fail(code):
+    challenge = get_ch_by_code(code)
+    word = challenge.word
+    challenge = removePlayer(code)
+    check()
     return render_template("fail.html", word=word)
 
 

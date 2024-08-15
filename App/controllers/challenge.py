@@ -11,7 +11,7 @@ def get_word():
 
 def createChallenge(code):
     word= get_word()
-    new_challenge = Challenge(code=code, word=word)
+    new_challenge = Challenge(code=code, word=word, playing=1)
     if new_challenge:
         db.session.add(new_challenge)
         db.session.commit()
@@ -19,9 +19,29 @@ def createChallenge(code):
     else:
         return None
 
+def addPlayer(code):
+    challenge = Challenge.query.filter_by(code=code).first()
+    challenge.playing += 1
+    db.session.commit()
+    return challenge
+
+def removePlayer(code):
+    challenge = Challenge.query.filter_by(code=code).first()
+    challenge.playing -= 1
+    db.session.commit()
+    return challenge
+
+def check(code):
+    challenge = Challenge.query.filter_by(code=code).first()
+    if challenge.playing == 0:
+        db.session.delete(challenge)
+        db.session.commit()
+    
 def joinChallenge(code):
     challenge = Challenge.query.filter_by(code=code).first()
     if challenge:
+        playing = challenge.playing
+        
         return challenge
     else:
         return None
@@ -75,3 +95,4 @@ def is_valid(code):
         return valid
     else:
         return None
+
