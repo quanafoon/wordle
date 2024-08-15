@@ -10,6 +10,7 @@ def get_word():
     return word.word
 
 def createChallenge(code):
+    
     word= get_word()
     new_challenge = Challenge(code=code, word=word, playing=1)
     if new_challenge:

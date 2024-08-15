@@ -32,6 +32,14 @@ def display():
 @challenge_views.route('/waiting', methods=['POST'])
 def create_challenge():
     code = request.form.get('code')
+
+    challenges = get_challenges()
+    if challenges: 
+        for challenge in challenges:
+            if code == challenge['code']:
+                flash ('Challenge code is already in use')
+                return render_template("create.html")
+
     challenge = createChallenge(code)
     if challenge:
         flash('Challenge Created')
