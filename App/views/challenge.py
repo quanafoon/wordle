@@ -117,7 +117,7 @@ def go_to_fail(code):
     challenge = get_ch_by_code(code)
     word = challenge.word
     challenge = removePlayer(code)
-    check()
+    check(code)
     return render_template("fail.html", word=word)
 
 
