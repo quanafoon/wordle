@@ -12,7 +12,6 @@
 
         .row{
             margin-top: 10px;
-            margin-left: 0px;
             display:flex;
         }
         .in{
@@ -24,6 +23,21 @@
             margin-top: 0px;;
             margin-left: 50px;
             font-size: 25px;
+        }
+        .btn-large{
+            height:50px;
+        }
+        .exit-button{
+            margin-top:30px;
+            margin-left: 100px;
+        }
+        .container{
+            width:100%;
+            display:flex;
+        }
+        .rows{
+            width:800px;
+            margin-left: 200px;
         }
     }
 
@@ -32,7 +46,6 @@
         
         .row{
             margin-top: 10px;
-            margin-left: 0px;
             display:flex;
         }
         .in{
@@ -44,6 +57,21 @@
             margin-top: 0px;;
             margin-left: 50px;
             font-size: 25px;
+        }
+        .btn-large{
+            height:50px;
+        }
+        .exit-button{
+            margin-top:30px;
+            margin-left: 100px;
+        }
+        .container{
+            width:100%;
+            display:flex;
+        }
+        .rows{
+            width:800px;
+            margin-left: 200px;
         }
     }
 
@@ -65,71 +93,75 @@
             margin-left: 25px;
             font-size: 25px;
         }
+        
     }
 </style>
-    
+<div class="container" style="margin-left: 0px;">
+<div class = "rows">
+    <div style="margin-top: 30px;" class="row" id="row-1">
+        <div class="in">        
+            <input style="text-align: center" type="text" id="guess-1" maxlength="5" oninput="validateInput(this)">
+            <button class="btn" onclick="submitGuess(1)" disabled>GUESS</button>
+        </div>
+        <div class="result" id="result-1">
 
-<div style="margin-top: 30px;" class="row" id="row-1">
-    <div class="in">        
-        <input style="text-align: center" type="text" id="guess-1" maxlength="5" oninput="validateInput(this)">
-        <button class="btn" onclick="submitGuess(1)" disabled>GUESS</button>
+        </div>
     </div>
-    <div class="result" id="result-1">
 
+    <div class="row" id="row-2">
+        <div class="in">        
+            <input style="text-align: center" type="text" id="guess-2" maxlength="5" oninput="validateInput(this)" disabled>
+            <button class="btn" onclick="submitGuess(2)" disabled>GUESS</button>
+        </div>
+        <div class="result" id="result-2">
+            
+        </div>
+    </div>
+
+    <div class="row" id="row-3">
+        <div class="in">        
+            <input style="text-align: center" type="text" id="guess-3" maxlength="5" oninput="validateInput(this)" disabled>
+            <button class="btn" onclick="submitGuess(3)" disabled>GUESS</button>
+        </div>
+        <div class="result" id="result-3">
+
+        </div>
+    </div>
+
+    <div class="row" id="row-4">
+        <div class="in">        
+            <input style="text-align: center" type="text" id="guess-4" maxlength="5" oninput="validateInput(this)" disabled>
+            <button class="btn" onclick="submitGuess(4)" disabled>GUESS</button>
+        </div>
+        <div class="result" id="result-4">
+
+        </div>
+    </div>
+
+    <div class="row" id="row-5">
+        <div class="in">        
+            <input style="text-align: center" type="text" id="guess-5" maxlength="5" oninput="validateInput(this)" disabled>
+            <button class="btn" onclick="submitGuess(5)" disabled>GUESS</button>
+        </div>
+        <div class="result" id="result-5">
+            
+        </div>
+    </div>
+
+    <div class="row" id="row-6">
+        <div class="in">        
+            <input style="text-align: center" type="text" id="guess-6" maxlength="5" oninput="validateInput(this)" disabled>
+            <button class="btn" onclick="submitGuess(6)" disabled>GUESS</button>
+        </div>
+        <div class="result" id="result-6">
+            
+        </div>
     </div>
 </div>
-
-<div class="row" id="row-2">
-    <div class="in">        
-        <input style="text-align: center" type="text" id="guess-2" maxlength="5" oninput="validateInput(this)" disabled>
-        <button class="btn" onclick="submitGuess(2)" disabled>GUESS</button>
-    </div>
-    <div class="result" id="result-2">
-        
+    <div class="exit-button">
+        <button class="btn-large" style="background-color: red;" onclick= "exit('{{challenge.code}}')"> EXIT </button>
     </div>
 </div>
-
-<div class="row" id="row-3">
-    <div class="in">        
-        <input style="text-align: center" type="text" id="guess-3" maxlength="5" oninput="validateInput(this)" disabled>
-        <button class="btn" onclick="submitGuess(3)" disabled>GUESS</button>
-    </div>
-    <div class="result" id="result-3">
-
-    </div>
-</div>
-
-<div class="row" id="row-4">
-    <div class="in">        
-        <input style="text-align: center" type="text" id="guess-4" maxlength="5" oninput="validateInput(this)" disabled>
-        <button class="btn" onclick="submitGuess(4)" disabled>GUESS</button>
-    </div>
-    <div class="result" id="result-4">
-
-    </div>
-</div>
-
-<div class="row" id="row-5">
-    <div class="in">        
-        <input style="text-align: center" type="text" id="guess-5" maxlength="5" oninput="validateInput(this)" disabled>
-        <button class="btn" onclick="submitGuess(5)" disabled>GUESS</button>
-    </div>
-    <div class="result" id="result-5">
-        
-    </div>
-</div>
-
-<div class="row" id="row-6">
-    <div class="in">        
-        <input style="text-align: center" type="text" id="guess-6" maxlength="5" oninput="validateInput(this)" disabled>
-        <button class="btn" onclick="submitGuess(6)" disabled>GUESS</button>
-    </div>
-    <div class="result" id="result-6">
-        
-    </div>
-</div>
-
-
 <script>
     function validateInput(input) {
             if (input.value.length === 5) {
@@ -140,59 +172,66 @@
                 const rowID = input.id.split('-')[1];
                 document.querySelector(`#row-${rowID} button`).disabled = true;
             }
-        }
+    }
 
-        async function submitGuess(row) {
-            document.querySelector(`#row-${row} input`).disabled = true;
-            document.querySelector(`#row-${row} button`).disabled = true;
-            const inputElement = document.querySelector(`#row-${row} input`);
-            const word = inputElement.value;
-            const challengeID = "{{challenge.id}}";
-            const response = await fetch(`/check/${challengeID}/${word}`, {
-                method: 'POST'
-            });
-            const result = await response.json();
+    async function exit(code){
+        await fetch(`/exit/${code}` , {
+            method : 'POST'
+        });
+        window.location.href = `/`;
+    }
 
-            if (result.status === 'success') {
-                const challengeCode = "{{challenge.code}}"
-                window.location.href = `/success/${challengeCode}`;
-            } else {
-                const resultElement = document.querySelector(`#result-${row}`);
-                resultElement.innerHTML = result.map(item => `<b style="color: ${item.color};">${item.char.toUpperCase()}</b>`).join(' ');
-                saveGuess(row, word, result);
-                if (row < 6) {
-                    document.querySelector(`#row-${row + 1} input`).disabled = false;
-                }
-                if (row === 6 && result.status !== 'success') {
-                    const challengeCode = "{{challenge.code}}"; 
-                    window.location.href = `/fail/${challengeCode}`;
-                }
+    async function submitGuess(row) {
+        document.querySelector(`#row-${row} input`).disabled = true;
+        document.querySelector(`#row-${row} button`).disabled = true;
+        const inputElement = document.querySelector(`#row-${row} input`);
+        const word = inputElement.value;
+        const challengeID = "{{challenge.id}}";
+        const response = await fetch(`/check/${challengeID}/${word}`, {
+            method: 'POST'
+        });
+        const result = await response.json();
+
+        if (result.status === 'success') {
+            const challengeCode = "{{challenge.code}}"
+            window.location.href = `/success/${challengeCode}`;
+        } else {
+            const resultElement = document.querySelector(`#result-${row}`);
+            resultElement.innerHTML = result.map(item => `<b style="color: ${item.color};">${item.char.toUpperCase()}</b>`).join(' ');
+            saveGuess(row, word, result);
+            if (row < 6) {
+                document.querySelector(`#row-${row + 1} input`).disabled = false;
+            }
+            if (row === 6 && result.status !== 'success') {
+                const challengeCode = "{{challenge.code}}"; 
+                window.location.href = `/fail/${challengeCode}`;
             }
         }
+    }
 
-        function saveGuess(row, word, result) {
-            const guesses = JSON.parse(sessionStorage.getItem('guesses')) || [];
-            guesses.push({ row, word, result });
-            sessionStorage.setItem('guesses', JSON.stringify(guesses));
-        }
+    function saveGuess(row, word, result) {
+        const guesses = JSON.parse(sessionStorage.getItem('guesses')) || [];
+        guesses.push({ row, word, result });
+        sessionStorage.setItem('guesses', JSON.stringify(guesses));
+    }
 
-        function loadGuesses() {
-            const guesses = JSON.parse(sessionStorage.getItem('guesses')) || [];
-            guesses.forEach(({ row, word, result }) => {
-                document.querySelector(`#row-${row} input`).value = word;
-                document.querySelector(`#row-${row} input`).disabled = true;
-                const resultElement = document.querySelector(`#result-${row}`);
-                resultElement.innerHTML = result.map(item => `<b style="color: ${item.color};">${item.char.toUpperCase()}</b>`).join(' ');
-                if (row < 6) {
-                    document.querySelector(`#row-${row + 1} input`).disabled = false;
-                }
-                if (row === 6) {
-                    document.querySelector(`#row-${row} button`).disabled = true;
-                }
-            });
-        }
+    function loadGuesses() {
+        const guesses = JSON.parse(sessionStorage.getItem('guesses')) || [];
+        guesses.forEach(({ row, word, result }) => {
+            document.querySelector(`#row-${row} input`).value = word;
+            document.querySelector(`#row-${row} input`).disabled = true;
+            const resultElement = document.querySelector(`#result-${row}`);
+            resultElement.innerHTML = result.map(item => `<b style="color: ${item.color};">${item.char.toUpperCase()}</b>`).join(' ');
+            if (row < 6) {
+                document.querySelector(`#row-${row + 1} input`).disabled = false;
+            }
+            if (row === 6) {
+                document.querySelector(`#row-${row} button`).disabled = true;
+            }
+        });
+    }
 
-        document.addEventListener('DOMContentLoaded', loadGuesses);
+    document.addEventListener('DOMContentLoaded', loadGuesses);
 
 </script>
 {% endblock %}

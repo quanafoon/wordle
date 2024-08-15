@@ -128,6 +128,13 @@ def go_to_fail(code):
     check(code)
     return render_template("fail.html", word=word)
 
+@challenge_views.route('/exit/<string:code>', methods = ['POST'])
+def exit_challenge(code):
+    challenge = removePlayer(code)
+    check(code)
+    flash('Left Challenge')
+    return '', 204
+
 
 @socketio.on('join_challenge')
 def handle_join_challenge(data):
