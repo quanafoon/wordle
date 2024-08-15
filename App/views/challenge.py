@@ -17,7 +17,8 @@ from App.controllers import (
     get_challenge,
     addPlayer,
     removePlayer,
-    check
+    check,
+    generateCode
 )
 
 challenge_views = Blueprint('challenge_views', __name__, template_folder='../templates')
@@ -134,6 +135,16 @@ def exit_challenge(code):
     check(code)
     flash('Left Challenge')
     return '', 204
+
+@challenge_views.route('/solo', methods = ['POST'])
+def create_solo():
+    code = generateCode()
+    challenge = createChallenge(code)
+    if challenge:
+        return redirect(url_for('challenge_views.go_to_game', code=code))    
+    else:
+        flash('Error creating Challenge')
+        return render_template('index.html')
 
 
 @socketio.on('join_challenge')

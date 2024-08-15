@@ -2,7 +2,7 @@ from App.models import Challenge, Words
 from App.database import db
 import random
 import string
-
+import uuid
 
 def get_word():
     num = random.randint(1,250)
@@ -42,7 +42,6 @@ def joinChallenge(code):
     challenge = Challenge.query.filter_by(code=code).first()
     if challenge:
         playing = challenge.playing
-        
         return challenge
     else:
         return None
@@ -90,10 +89,13 @@ def cancel_challenge(challenge_id):
     else:
         return None
 
+def generateCode():
+    code = str(uuid.uuid4())
+    return code
+
 def is_valid(code):
     valid = Challenge.query.filter_by(code=code)
     if valid:
         return valid
     else:
         return None
-

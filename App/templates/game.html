@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
-{% block title %}WORDLE{% endblock %}
-{% block page %}WORDLE{% endblock %}
+{% block title %}Wordle{% endblock %}
+{% block page %}Wordle{% endblock %}
 
 {{ super() }}
 
@@ -28,7 +28,7 @@
             height:50px;
         }
         .exit-button{
-            margin-top:30px;
+            margin-top:15px;
             margin-left: 100px;
         }
         .container{
@@ -62,7 +62,7 @@
             height:50px;
         }
         .exit-button{
-            margin-top:30px;
+            margin-top:15px;
             margin-left: 100px;
         }
         .container{
@@ -84,7 +84,7 @@
             display:flex;
         }
         .in{
-            margin-top: 10px;
+            margin-top: 20px;
             width:250px;
             display:flex;
         }
@@ -96,8 +96,10 @@
         
     }
 </style>
+
 <div class="container" style="margin-left: 0px;">
 <div class = "rows">
+    
     <div style="margin-top: 30px;" class="row" id="row-1">
         <div class="in">        
             <input style="text-align: center" type="text" id="guess-1" maxlength="5" oninput="validateInput(this)">
