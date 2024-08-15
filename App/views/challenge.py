@@ -132,6 +132,7 @@ def go_to_fail(code):
 def exit_challenge(code):
     challenge = removePlayer(code)
     check(code)
+    flash('Left Challenge')
     return '', 204
 
 

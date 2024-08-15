@@ -175,64 +175,63 @@
     }
 
     async function exit(code){
-
         await fetch(`/exit/${code}` , {
             method : 'POST'
         });
         window.location.href = `/`;
-        
     }
-        async function submitGuess(row) {
-            document.querySelector(`#row-${row} input`).disabled = true;
-            document.querySelector(`#row-${row} button`).disabled = true;
-            const inputElement = document.querySelector(`#row-${row} input`);
-            const word = inputElement.value;
-            const challengeID = "{{challenge.id}}";
-            const response = await fetch(`/check/${challengeID}/${word}`, {
-                method: 'POST'
-            });
-            const result = await response.json();
 
-            if (result.status === 'success') {
-                const challengeCode = "{{challenge.code}}"
-                window.location.href = `/success/${challengeCode}`;
-            } else {
-                const resultElement = document.querySelector(`#result-${row}`);
-                resultElement.innerHTML = result.map(item => `<b style="color: ${item.color};">${item.char.toUpperCase()}</b>`).join(' ');
-                saveGuess(row, word, result);
-                if (row < 6) {
-                    document.querySelector(`#row-${row + 1} input`).disabled = false;
-                }
-                if (row === 6 && result.status !== 'success') {
-                    const challengeCode = "{{challenge.code}}"; 
-                    window.location.href = `/fail/${challengeCode}`;
-                }
+    async function submitGuess(row) {
+        document.querySelector(`#row-${row} input`).disabled = true;
+        document.querySelector(`#row-${row} button`).disabled = true;
+        const inputElement = document.querySelector(`#row-${row} input`);
+        const word = inputElement.value;
+        const challengeID = "{{challenge.id}}";
+        const response = await fetch(`/check/${challengeID}/${word}`, {
+            method: 'POST'
+        });
+        const result = await response.json();
+
+        if (result.status === 'success') {
+            const challengeCode = "{{challenge.code}}"
+            window.location.href = `/success/${challengeCode}`;
+        } else {
+            const resultElement = document.querySelector(`#result-${row}`);
+            resultElement.innerHTML = result.map(item => `<b style="color: ${item.color};">${item.char.toUpperCase()}</b>`).join(' ');
+            saveGuess(row, word, result);
+            if (row < 6) {
+                document.querySelector(`#row-${row + 1} input`).disabled = false;
+            }
+            if (row === 6 && result.status !== 'success') {
+                const challengeCode = "{{challenge.code}}"; 
+                window.location.href = `/fail/${challengeCode}`;
             }
         }
+    }
 
-        function saveGuess(row, word, result) {
-            const guesses = JSON.parse(sessionStorage.getItem('guesses')) || [];
-            guesses.push({ row, word, result });
-            sessionStorage.setItem('guesses', JSON.stringify(guesses));
-        }
+    function saveGuess(row, word, result) {
+        const guesses = JSON.parse(sessionStorage.getItem('guesses')) || [];
+        guesses.push({ row, word, result });
+        sessionStorage.setItem('guesses', JSON.stringify(guesses));
+    }
 
-        function loadGuesses() {
-            const guesses = JSON.parse(sessionStorage.getItem('guesses')) || [];
-            guesses.forEach(({ row, word, result }) => {
-                document.querySelector(`#row-${row} input`).value = word;
-                document.querySelector(`#row-${row} input`).disabled = true;
-                const resultElement = document.querySelector(`#result-${row}`);
-                resultElement.innerHTML = result.map(item => `<b style="color: ${item.color};">${item.char.toUpperCase()}</b>`).join(' ');
-                if (row < 6) {
-                    document.querySelector(`#row-${row + 1} input`).disabled = false;
-                }
-                if (row === 6) {
-                    document.querySelector(`#row-${row} button`).disabled = true;
-                }
-            });
-        }
+    function loadGuesses() {
+        const guesses = JSON.parse(sessionStorage.getItem('guesses')) || [];
+        guesses.forEach(({ row, word, result }) => {
+            document.querySelector(`#row-${row} input`).value = word;
+            document.querySelector(`#row-${row} input`).disabled = true;
+            const resultElement = document.querySelector(`#result-${row}`);
+            resultElement.innerHTML = result.map(item => `<b style="color: ${item.color};">${item.char.toUpperCase()}</b>`).join(' ');
+            if (row < 6) {
+                document.querySelector(`#row-${row + 1} input`).disabled = false;
+            }
+            if (row === 6) {
+                document.querySelector(`#row-${row} button`).disabled = true;
+            }
+        });
+    }
 
-        document.addEventListener('DOMContentLoaded', loadGuesses);
+    document.addEventListener('DOMContentLoaded', loadGuesses);
 
 </script>
 {% endblock %}
