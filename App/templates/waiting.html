@@ -94,12 +94,12 @@
         });
 
         // Handler for beforeunload event
-        window.addEventListener('beforeunload', function(event) {
-            if (!cancelPressed && !found) {
-                // Send a synchronous request to delete the challenge
-                showMessage("Challenge Cancelled")
-                navigator.sendBeacon('/cancel/{{ challenge.code }}');
-            }
+        window.addEventListener('beforeunload', function () {
+            const challengeCode = "{{ challenge.code }}";
+
+            // Synchronous request to cancel the challenge
+            const url = `/cancelUnload/${challengeCode}`;
+            navigator.sendBeacon(url)
         });
 
 

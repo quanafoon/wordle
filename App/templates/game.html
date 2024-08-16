@@ -99,7 +99,7 @@
 
 <div class="container" style="margin-left: 0px;">
 <div class = "rows">
-    
+
     <div style="margin-top: 30px;" class="row" id="row-1">
         <div class="in">        
             <input style="text-align: center" type="text" id="guess-1" maxlength="5" oninput="validateInput(this)">
@@ -232,6 +232,13 @@
             }
         });
     }
+
+
+    window.addEventListener('beforeunload', function (e) {
+        sessionStorage.clear();
+        e.returnValue = '';
+    });
+
 
     document.addEventListener('DOMContentLoaded', loadGuesses);
 
