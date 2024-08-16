@@ -73,6 +73,10 @@
             width:800px;
             margin-left: 200px;
         }
+        .SafariQuote{
+            margin-top:8px;
+            margin-left: 25px;
+        }
     }
 
     /* Styles for phones */
@@ -93,7 +97,13 @@
             margin-left: 25px;
             font-size: 25px;
         }
-        
+        .exit-button{
+            display:flex;
+        }
+        .SafariQuote{
+            margin-top:8px;
+            margin-left: 25px;
+        }
     }
 </style>
 
@@ -162,8 +172,10 @@
 </div>
     <div class="exit-button">
         <button class="btn-large" style="background-color: red;" onclick= "exit('{{challenge.code}}')"> EXIT </button>
+        <blockquote style="display:flex" id="forSafari" class="SafariQuote"> </blockquote>
     </div>
 </div>
+
 <script>
     function validateInput(input) {
             if (input.value.length === 5) {
@@ -235,12 +247,37 @@
 
 
     window.addEventListener('beforeunload', function (e) {
+        const challengeCode = "{{ challenge.code }}";
+        const url = `/cancelUnload/${challengeCode}`;
+        navigator.sendBeacon(url);
         sessionStorage.clear();
         e.returnValue = '';
     });
 
+    function isSafari() {
+        const userAgent = navigator.userAgent;
+        return /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
+    }
+    function showBlockquote(){
+        if (isSafari()){
+            const blockElement = document.querySelector(`#forSafari`);
+            blockElement.innerHTML = "Leaving the game tab cancels the challenge"
+        }
+    }
+
+    document.addEventListener('visibilitychange', function() {
+            if (isSafari()){
+            if (document.visibilityState === 'hidden') {
+                const challengeCode = "{{ challenge.code }}";
+                const url = `/cancelUnload/${challengeCode}`;
+                navigator.sendBeacon(url);
+                window.location.href = `/`;
+            }
+        }
+        });
 
     document.addEventListener('DOMContentLoaded', loadGuesses);
+    document.addEventListener('DOMContentLoaded', showBlockquote)
 
 </script>
 {% endblock %}
