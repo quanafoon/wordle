@@ -93,13 +93,14 @@
             cancelPressed = true;
         });
 
-        // Handler for beforeunload event
-        window.addEventListener('beforeunload', function () {
-            const challengeCode = "{{ challenge.code }}";
-
-            // Synchronous request to cancel the challenge
-            const url = `/cancelUnload/${challengeCode}`;
-            navigator.sendBeacon(url)
+        // This event is triggered when the page visibility changes (switching tabs, minimizing, etc.)
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') {
+                const challengeCode = "{{ challenge.code }}";
+                const url = `/cancelUnload/${challengeCode}`;
+                navigator.sendBeacon(url);
+                window.location.href = `/create`;
+            }
         });
 
 
