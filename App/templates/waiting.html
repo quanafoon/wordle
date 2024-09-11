@@ -94,15 +94,18 @@
         });
 
         // This event is triggered when the page visibility changes (switching tabs, minimizing, etc.)
+        
         document.addEventListener('visibilitychange', function() {
+            if (!found){
             if (document.visibilityState === 'hidden') {
                 const challengeCode = "{{ challenge.code }}";
                 const url = `/cancelUnload/${challengeCode}`;
                 navigator.sendBeacon(url);
                 window.location.href = `/create`;
             }
+            }
         });
-
+        
 
         socket.on('challenge_joined', (data) => {
             if (data.code === "{{ challenge.code }}") {
