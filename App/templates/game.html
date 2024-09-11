@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
-{% block title %}WORDLE{% endblock %}
-{% block page %}WORDLE{% endblock %}
+{% block title %}Wordle{% endblock %}
+{% block page %}Wordle{% endblock %}
 
 {{ super() }}
 
@@ -28,7 +28,7 @@
             height:50px;
         }
         .exit-button{
-            margin-top:30px;
+            margin-top:15px;
             margin-left: 100px;
         }
         .container{
@@ -62,7 +62,7 @@
             height:50px;
         }
         .exit-button{
-            margin-top:30px;
+            margin-top:15px;
             margin-left: 100px;
         }
         .container{
@@ -72,6 +72,10 @@
         .rows{
             width:800px;
             margin-left: 200px;
+        }
+        .SafariQuote{
+            margin-top:8px;
+            margin-left: 25px;
         }
     }
 
@@ -84,7 +88,7 @@
             display:flex;
         }
         .in{
-            margin-top: 10px;
+            margin-top: 20px;
             width:250px;
             display:flex;
         }
@@ -93,11 +97,19 @@
             margin-left: 25px;
             font-size: 25px;
         }
-        
+        .exit-button{
+            display:flex;
+        }
+        .SafariQuote{
+            margin-top:8px;
+            margin-left: 25px;
+        }
     }
 </style>
+
 <div class="container" style="margin-left: 0px;">
 <div class = "rows">
+
     <div style="margin-top: 30px;" class="row" id="row-1">
         <div class="in">        
             <input style="text-align: center" type="text" id="guess-1" maxlength="5" oninput="validateInput(this)">
@@ -160,9 +172,14 @@
 </div>
     <div class="exit-button">
         <button class="btn-large" style="background-color: red;" onclick= "exit('{{challenge.code}}')"> EXIT </button>
+        <blockquote style="display:flex" id="forSafari" class="SafariQuote"> </blockquote>
     </div>
 </div>
+
 <script>
+
+    let finished = false;
+
     function validateInput(input) {
             if (input.value.length === 5) {
                 const rowID = input.id.split('-')[1];
@@ -194,6 +211,7 @@
 
         if (result.status === 'success') {
             const challengeCode = "{{challenge.code}}"
+            finished = true;
             window.location.href = `/success/${challengeCode}`;
         } else {
             const resultElement = document.querySelector(`#result-${row}`);
@@ -204,6 +222,7 @@
             }
             if (row === 6 && result.status !== 'success') {
                 const challengeCode = "{{challenge.code}}"; 
+                finished = true;
                 window.location.href = `/fail/${challengeCode}`;
             }
         }
@@ -231,7 +250,42 @@
         });
     }
 
+    
+    window.addEventListener('beforeunload', function (e) {
+        sessionStorage.clear();
+        if (!finished){
+            const challengeCode = "{{ challenge.code }}";
+            const url = `/cancelUnload/${challengeCode}`;
+            navigator.sendBeacon(url);
+            e.returnValue = '';
+        }
+    });
+
+    function isSafari() {
+        const userAgent = navigator.userAgent;
+        return /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
+    }
+    function showBlockquote(){
+        if (isSafari()){
+            const blockElement = document.querySelector(`#forSafari`);
+            blockElement.innerHTML = "Leaving the game tab cancels the challenge"
+        }
+    }
+
+    document.addEventListener('visibilitychange', function() {
+            if (isSafari()){
+            if (document.visibilityState === 'hidden') {
+                const challengeCode = "{{ challenge.code }}";
+                const url = `/cancelUnload/${challengeCode}`;
+                navigator.sendBeacon(url);
+                sessionStorage.clear();
+                window.location.href = `/`;
+            }
+        }
+        });
+    
     document.addEventListener('DOMContentLoaded', loadGuesses);
+    document.addEventListener('DOMContentLoaded', showBlockquote)
 
 </script>
 {% endblock %}

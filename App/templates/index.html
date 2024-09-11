@@ -11,6 +11,13 @@
 
 <style>     
     @media (min-width: 1024px) {
+        .solo-button{
+            margin-top: 80px;
+        }
+        .btn{
+            height:70px;
+            width:900px;
+        }
         .form{
             margin-left:20px
         }
@@ -22,19 +29,34 @@
 
     /* Styles for tablets */
     @media (min-width: 768px) and (max-width: 1023px) {
+        .solo-button{
+            margin-top: 80px;
+        }
+        .btn{
+            height:70px;
+            width:100%;
+        }
         .form{
-            margin-left: 20px;
+            margin-left:20px
         }
         .input{
-            width:100px;
+            width:250px;
             margin-left:20px;
         }
     }
 
     /* Styles for phones */
     @media (max-width: 767px) {
+
+        .solo-button{
+            margin-top: 80px;
+        }
+        .btn{
+            height:70px;
+            width:100%;
+        }
         .form{
-            margin-left: 20px;
+            margin-left:20px
         }
         .input{
             width:100px;
@@ -43,8 +65,13 @@
     }
 </style>
 
+    <div class="solo-button">
+        <form action="/solo" method="POST">
+            <button class="btn"> Play Solo </button>
+        </form>
+    </div>
     <div class="form">
-        <form action="/create" method="GET" style="margin-top: 150px;">
+        <form action="/create" method="GET" style="margin-top: 80px;">
             <button class="btn-large" style="width: 220px;"> Create Challenge </button>
         </form>
         <form action="/join" method="POST" style="margin-top: 15px; display: flex">
