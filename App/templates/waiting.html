@@ -97,12 +97,12 @@
         
         document.addEventListener('visibilitychange', function() {
             if (!found){
-            if (document.visibilityState === 'hidden') {
-                const challengeCode = "{{ challenge.code }}";
-                const url = `/cancelUnload/${challengeCode}`;
-                navigator.sendBeacon(url);
-                window.location.href = `/create`;
-            }
+                if (document.visibilityState === 'hidden') {
+                    const challengeCode = "{{ challenge.code }}";
+                    const url = `/cancelUnload/${challengeCode}`;
+                    navigator.sendBeacon(url);
+                    window.location.href = `/create`;
+                }
             }
         });
         
