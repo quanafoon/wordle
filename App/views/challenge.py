@@ -73,10 +73,10 @@ def cancel_challenge_route(code):
         return render_template("waiting.html", code=code)
 
 @challenge_views.route('/cancelUnload/<string:code>', methods=['POST'])
-def cancel_challenge2(code):
-    challengeID = get_challengeID(code)
-    if challengeID:
-        challenge = cancel_challenge(challengeID)
+def player_left(code):
+    challenge = removePlayer(code)
+    if challenge:
+        check(code)
     return '', 204  # No Content
 
 @challenge_views.route('/join', methods=['POST'])

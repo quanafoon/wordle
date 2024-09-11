@@ -273,15 +273,17 @@
     }
 
     document.addEventListener('visibilitychange', function() {
-            if (isSafari()){
-            if (document.visibilityState === 'hidden') {
-                const challengeCode = "{{ challenge.code }}";
-                const url = `/cancelUnload/${challengeCode}`;
-                navigator.sendBeacon(url);
-                sessionStorage.clear();
-                window.location.href = `/`;
+            if (isSafari()){            
+                if (document.visibilityState === 'hidden') {
+                    sessionStorage.clear();
+                    if (!finished){
+                        const challengeCode = "{{ challenge.code }}";
+                        const url = `/cancelUnload/${challengeCode}`;
+                        navigator.sendBeacon(url);
+                        window.location.href = `/`;
+                    }
+                }
             }
-        }
         });
     
     document.addEventListener('DOMContentLoaded', loadGuesses);
